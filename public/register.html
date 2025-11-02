@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - My Favorite Recipes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="js/register.js" defer></script>
+</head>
+<body class="register-body">
+    <!-- Navigation -->
+    <nav class="register-nav">
+        <div class="register-nav-container">
+            <a href="index.html" class="register-logo">My Favorite Recipes</a>
+            <ul class="register-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="register-main">
+        <div class="register-container">
+            <div class="register-header">
+                <h1 class="register-title">Create Account</h1>
+                <p class="register-subtitle">Join us to explore amazing recipes</p>
+            </div>
+
+            <div id="registerMessage" class="register-message"></div>
+
+            <form id="registerForm" class="register-form">
+                <div class="register-form-group">
+                    <label for="fullName" class="register-label">Full Name</label>
+                    <input 
+                        type="text" 
+                        id="fullName" 
+                        name="fullName" 
+                        class="register-input" 
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+                <div class="register-form-group">
+                    <label for="email" class="register-label">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="register-input" 
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="register-form-group">
+                    <label for="username" class="register-label">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="register-input" 
+                        placeholder="Choose a username"
+                        required
+                    >
+                </div>
+
+                <div class="register-form-group">
+                    <label for="password" class="register-label">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="register-input" 
+                        placeholder="Create a password"
+                        required
+                        minlength="6"
+                    >
+                    <div id="passwordStrength" class="register-password-strength">
+                        <div id="strengthBar" class="register-strength-bar"></div>
+                    </div>
+                </div>
+
+                <button type="submit" id="registerBtn" class="register-button">
+                    Register
+                </button>
+            </form>
+
+            <div class="register-login-link">
+                Already have an account? <a href="login.html">Back to Login</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="register-footer">
+        <p>&copy; 2025 My Favorite Recipes. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

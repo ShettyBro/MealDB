@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Recipes</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="js/home.js" defer></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">RecipesBox</div>
+            <ul class="nav-links">
+                <li><a href="login.html" onclick="login(event)">Login</a></li>
+                <li><a href="register.html" onclick="register(event)">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <h1>Discover Delicious Recipes</h1>
+        <div class="recipe-grid" id="recipeGrid"></div>
+    </main>
+
+    <!-- Login Popup -->
+    <div class="popup-overlay" id="loginPopup">
+        <div class="popup">
+            <h2>Login Required</h2>
+            <p>Please login to view the full recipe details.</p>
+            <button class="popup-btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 My Favorite Recipes. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

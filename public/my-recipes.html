@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Recipes - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="js/myRecipes.js" defer></script>
+</head>
+<body class="dashboard-body">
+    <!-- Navigation -->
+    <nav class="dashboard-nav">
+        <div class="dashboard-nav-container">
+            <a href="index.html" class="dashboard-logo">My Favorite Recipes</a>
+            <ul class="dashboard-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add-recipe.html">Add Recipe</a></li>
+                <li><button class="dashboard-logout-btn" onclick="handleLogout()">Logout</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">My Recipes</h1>
+            <button class="dashboard-add-btn" onclick="window.location.href='add-recipe.html'">
+                <span class="dashboard-add-icon">+</span>
+                Add Recipe
+            </button>
+        </div>
+
+        <div id="dashboardContent"></div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="dashboard-modal-overlay" id="deleteModal">
+        <div class="dashboard-modal">
+            <h2 class="dashboard-modal-title">Delete Recipe?</h2>
+            <p class="dashboard-modal-text">Are you sure you want to delete this recipe? This action cannot be undone.</p>
+            <div class="dashboard-modal-actions">
+                <button class="dashboard-modal-btn dashboard-modal-cancel" onclick="closeDeleteModal()">Cancel</button>
+                <button class="dashboard-modal-btn dashboard-modal-confirm" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <p>&copy; 2025 My Favorite Recipes. All rights reserved.</p>
+    </footer>
+
+  
+</body>
+</html>

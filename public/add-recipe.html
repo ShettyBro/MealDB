@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipe - My Favorite Recipes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="js/addRecipe.js" defer></script>
+</head>
+<body class="addrecipe-body">
+    <!-- Navigation -->
+    <nav class="addrecipe-nav">
+        <div class="addrecipe-nav-container">
+            <a href="index.html" class="addrecipe-logo">My Favorite Recipes</a>
+            <ul class="addrecipe-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">My Recipes</a></li>
+                <li><a href="dashboard.html" class="addrecipe-back-btn">← Back</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="addrecipe-main">
+        <div class="addrecipe-container">
+            <div class="addrecipe-header">
+                <h1 class="addrecipe-title">Add New Recipe</h1>
+                <p class="addrecipe-subtitle">Share your delicious creation with the world</p>
+            </div>
+
+            <div id="addrecipeMessage" class="addrecipe-message"></div>
+
+            <form id="addRecipeForm" class="addrecipe-form">
+                <!-- Recipe Title -->
+                <div class="addrecipe-form-group">
+                    <label for="recipeTitle" class="addrecipe-label">
+                        Recipe Title <span class="addrecipe-required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="recipeTitle" 
+                        name="title" 
+                        class="addrecipe-input" 
+                        placeholder="e.g., Chocolate Chip Cookies"
+                        required
+                    >
+                </div>
+
+                <!-- Image Upload -->
+                <div class="addrecipe-form-group">
+                    <label class="addrecipe-label">
+                        Recipe Image <span class="addrecipe-required">*</span>
+                    </label>
+                    <div class="addrecipe-image-upload">
+                        <input 
+                            type="file" 
+                            id="recipeImage" 
+                            name="image" 
+                            accept="image/*"
+                            class="addrecipe-file-input"
+                            required
+                        >
+                        <label for="recipeImage" class="addrecipe-upload-label" id="uploadLabel">
+                            <div class="addrecipe-upload-icon">📷</div>
+                            <div class="addrecipe-upload-text">
+                                <strong>Click to upload</strong> or drag and drop
+                            </div>
+                            <div class="addrecipe-upload-hint">PNG, JPG or WEBP (max. 5MB)</div>
+                        </label>
+                        <div class="addrecipe-image-preview" id="imagePreview">
+                            <img id="previewImg" class="addrecipe-preview-img" src="" alt="Preview">
+                            <button type="button" class="addrecipe-remove-image" onclick="removeImage()">×</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ingredients -->
+                <div class="addrecipe-form-group">
+                    <label for="recipeIngredients" class="addrecipe-label">
+                        Ingredients <span class="addrecipe-required">*</span>
+                    </label>
+                    <textarea 
+                        id="recipeIngredients" 
+                        name="ingredients" 
+                        class="addrecipe-textarea" 
+                        placeholder="List all ingredients (one per line)&#10;e.g.,&#10;2 cups flour&#10;1 cup sugar&#10;2 eggs"
+                        required
+                    ></textarea>
+                    <p class="addrecipe-helper-text">Tip: List each ingredient on a new line</p>
+                </div>
+
+                <!-- Steps -->
+                <div class="addrecipe-form-group">
+                    <label for="recipeSteps" class="addrecipe-label">
+                        Cooking Steps <span class="addrecipe-required">*</span>
+                    </label>
+                    <textarea 
+                        id="recipeSteps" 
+                        name="steps" 
+                        class="addrecipe-textarea" 
+                        placeholder="Describe the cooking steps&#10;e.g.,&#10;1. Preheat oven to 350°F&#10;2. Mix flour and sugar&#10;3. Add eggs and mix well"
+                        required
+                        style="min-height: 150px;"
+                    ></textarea>
+                    <p class="addrecipe-helper-text">Tip: Number each step for clarity</p>
+                </div>
+
+                <!-- Buttons -->
+                <div class="addrecipe-button-group">
+                    <button type="button" class="addrecipe-cancel-btn" onclick="handleCancel()">
+                        Cancel
+                    </button>
+                    <button type="submit" id="submitBtn" class="addrecipe-submit-btn">
+                        Save Recipe
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="addrecipe-footer">
+        <p>&copy; 2025 My Favorite Recipes. All rights reserved.</p>
+    </footer>
+
+
+</body>
+</html>

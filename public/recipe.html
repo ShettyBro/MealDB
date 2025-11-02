@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Details - My Favorite Recipes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="js/recipeDetails.js" defer></script>
+</head>
+<body class="recipedetails-body">
+    <!-- Navigation -->
+    <nav class="recipedetails-nav">
+        <div class="recipedetails-nav-container">
+            <a href="index.html" class="recipedetails-logo">🍳 My Favorite Recipes</a>
+            <ul class="recipedetails-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">My Recipes</a></li>
+                <li><a href="index.html" class="recipedetails-back-btn">← Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Required Overlay -->
+    <div class="recipedetails-overlay" id="loginOverlay">
+        <div class="recipedetails-overlay-content">
+            <div class="recipedetails-overlay-icon">🔒</div>
+            <h2 class="recipedetails-overlay-title">Login Required</h2>
+            <p class="recipedetails-overlay-text">
+                Please login to view this recipe and access all the delicious details!
+            </p>
+            <div class="recipedetails-overlay-buttons">
+                <button class="recipedetails-overlay-btn recipedetails-overlay-home" onclick="window.location.href='index.html'">
+                    Go Home
+                </button>
+                <button class="recipedetails-overlay-btn recipedetails-overlay-login" onclick="window.location.href='login.html'">
+                    Login Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="recipedetails-main">
+        <div class="recipedetails-container">
+            <div id="recipeContent"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="recipedetails-footer">
+        <p>&copy; 2025 My Favorite Recipes. All rights reserved.</p>
+    </footer>
+
+    
+</body>
+</html>
