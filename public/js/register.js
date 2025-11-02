@@ -86,7 +86,7 @@ const registerForm = document.getElementById('registerForm');
 
             try {
                 // Attempt to call the API
-                const response = await fetch('/netlify/functions/auth/register', {
+                const response = await fetch('https://mealdbs.netlify.app/.netlify/functions/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
