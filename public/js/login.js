@@ -2,7 +2,8 @@
 
 const loginForm = document.getElementById('loginForm');
 const loginBtn = document.getElementById('loginBtn');
-const messageDiv = document.getElementById('message');
+const messageDiv = document.getElementById('loginMessage');
+
 
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
