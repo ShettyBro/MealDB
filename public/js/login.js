@@ -16,7 +16,7 @@ const loginForm = document.getElementById('loginForm');
             messageDiv.classList.remove('show', 'success', 'error');
 
             try {
-                // Simulate API call
+                
                 const response = await fetch('https://mealdbs.netlify.app/.netlify/functions/login', {
                     method: 'POST',
                     headers: {
