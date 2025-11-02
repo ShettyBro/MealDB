@@ -9,6 +9,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="js/addRecipe.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Retrieve the token and its expiration time from local storage
+            const token = localStorage.getItem('authToken');
+            const expirationTime = localStorage.getItem('tokenExpiration');
+            
+            // Check if the token is missing or expired
+            if (!token || (expirationTime && Date.now() > expirationTime)) {
+                // Clear the token and expiration time from local storage
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('tokenExpiration');
+                // Redirect to the login page
+                window.location.href = 'index.html'; // Change this to 'index.html' as you requested
+            }
+        });
+    </script>
 </head>
 <body class="addrecipe-body">
     <!-- Navigation -->

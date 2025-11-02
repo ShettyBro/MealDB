@@ -17,7 +17,7 @@ const loginForm = document.getElementById('loginForm');
 
             try {
                 // Simulate API call
-                const response = await fetch('/netlify/functions/auth/login', {
+                const response = await fetch('https://mealdbs.netlify.app/.netlify/functions/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
