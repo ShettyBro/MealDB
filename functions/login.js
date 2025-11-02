@@ -3,9 +3,16 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dbConfig = require('../dbConfig');
 require('dotenv').config();
+const crypto = require('crypto');
 
-// Use a fixed secret from environment (.env)
-const JWT_SECRET = process.env.JWT_SECRET;
+// Generate a secure secret key
+const generateSecretKey = () => {
+  return crypto.randomBytes(64).toString('hex');
+};
+
+// Replace with a secure secret key
+const JWT_SECRET = generateSecretKey();
+
 
 exports.handler = async (event) => {
   const headers = {
