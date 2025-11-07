@@ -7,21 +7,19 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="js/home.js" defer></script>
      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Retrieve the token and its expiration time from local storage
-            const token = localStorage.getItem('token');
-            const expirationTime = localStorage.getItem('tokenExpiration');
-            
-            // Check if the token is missing or expired
-            if (!token || (expirationTime && Date.now() > expirationTime)) {
-                // Clear the token and expiration time from local storage
-                localStorage.removeItem('token');
-                localStorage.removeItem('tokenExpiration');
-                // Redirect to the login page
-                window.location.href = 'index.html'; // Change this to 'index.html' as you requested
-            }
-        });
-    </script>
+document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token');
+  const expirationStr = localStorage.getItem('tokenExpiration');
+  const expirationTime = expirationStr ? Number(expirationStr) : 0;
+
+  if (!token || (expirationTime && Date.now() > expirationTime)) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenExpiration');
+    window.location.href = 'index.html';
+  }
+});
+</script>
+
     
 </head>
 <body>

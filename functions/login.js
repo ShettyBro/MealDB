@@ -5,13 +5,8 @@ const dbConfig = require('../dbConfig');
 require('dotenv').config();
 const crypto = require('crypto');
 
-// Generate a secure secret key
-const generateSecretKey = () => {
-  return crypto.randomBytes(64).toString('hex');
-};
-
-// Replace with a secure secret key
-const JWT_SECRET = generateSecretKey();
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) throw new Error('JWT_SECRET is not set');
 
 
 exports.handler = async (event) => {
@@ -67,19 +62,27 @@ exports.handler = async (event) => {
       };
     }
 
-    // ✅ Generate JWT (5-hour expiry)
+   // Sign with explicit claims (still UTC)
     const token = jwt.sign(
-      { id: user.USER_ID, username: user.USERNAME },
+      { sub: String(user.USER_ID), username: user.USERNAME },
       JWT_SECRET,
-      { expiresIn: '5h' }
+      {
+        algorithm: 'HS256',
+        expiresIn: '5h',
+        issuer: 'mealdbs.netlify.app',    // adjust
+        audience: 'mealdbs:web'           // adjust
+      }
     );
 
-    // ✅ Respond with token + user details
-    // Compute expiration time (ms) from the JWT 'exp' claim, fallback to 5 hours
-    const decoded = jwt.decode(token);
-    const tokenExpiration = decoded && decoded.exp
-      ? decoded.exp * 1000
-      : Date.now() + 5 * 60 * 60 * 1000;
+    const { exp } = jwt.decode(token); // seconds since epoch (UTC)
+    const tokenExpiration = exp * 1000; // ms
+
+    // // ✅ Respond with token + user details
+    // // Compute expiration time (ms) from the JWT 'exp' claim, fallback to 5 hours
+    // const decoded = jwt.decode(token);
+    // const tokenExpiration = decoded && decoded.exp
+    //   ? decoded.exp * 1000
+    //   : Date.now() + 5 * 60 * 60 * 1000;
 
     return {
       statusCode: 200,
