@@ -39,7 +39,7 @@ loginForm.addEventListener('submit', async (e) => {
              // Set expiration time for the token (5 hours in milliseconds)
              const expirationTime = Date.now() + (5 * 60 * 60 * 1000);
              localStorage.setItem('tokenExpiration', expirationTime);
-    showMessage('Login successful! Redirecting...', 'success');
+        showMessage('Login successful! Redirecting...', 'success');
 
     // Redirect to home page after 1.5 seconds
     setTimeout(() => {

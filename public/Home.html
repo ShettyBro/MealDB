@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Favorite Recipes</title>
+    <title>MealBD</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="js/home.js" defer></script>
+    <script src="js/script.js" defer></script>
      <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Retrieve the token and its expiration time from local storage
@@ -28,10 +29,10 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">RecipesBox</div>
+            <div class="logo">MealBD</div>
             <ul class="nav-links">
-                <li><a href="login.html" onclick="login(event)">Login</a></li>
-                <li><a href="register.html" onclick="register(event)">Register</a></li>
+                <li><a href="my-recipes.html" onclick="login(event)">My Recipes</a></li>
+                <li><a href="index.html" id="logoutButton">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -42,18 +43,11 @@
         <div class="recipe-grid" id="recipeGrid"></div>
     </main>
 
-    <!-- Login Popup
-    <div class="popup-overlay" id="loginPopup">
-        <div class="popup">
-            <h2>Login Required</h2>
-            <p>Please login to view the full recipe details.</p>
-            <button class="popup-btn" onclick="window.location.href='recipe.html'"></button>
-        </div>
-    </div> -->
+    
 
 
     <footer>
-        <p>&copy; 2025 My Favorite Recipes. All rights reserved.</p>
+        <p>&copy; 2025 MealBD. All rights reserved.</p>
     </footer>
 
 </body>
