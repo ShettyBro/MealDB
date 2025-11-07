@@ -27,7 +27,7 @@ loginForm.addEventListener('submit', async (e) => {
 
     if (!response.ok) {
       const errData = await response.json();
-      throw new Error(errData.message || 'Login failed');
+      throw new Error(errData.message || 'Invalid username or password. Please try again.');
     }
 
     const data = await response.json();
@@ -48,7 +48,7 @@ loginForm.addEventListener('submit', async (e) => {
 
   } catch (error) {
     console.error('Login error:', error.message);
-    showMessage('Invalid username or password. Please try again.', 'error');
+    showMessage('Server Down wait for 2 minutes And Try Again',);
     loginBtn.disabled = false;
     loginBtn.textContent = 'Login';
   }
