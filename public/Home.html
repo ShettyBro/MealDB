@@ -6,7 +6,7 @@
     <title>My Favorite Recipes</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="js/home.js" defer></script>
-       <script>
+     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Retrieve the token and its expiration time from local storage
             const token = localStorage.getItem('authToken');
@@ -18,15 +18,10 @@
                 localStorage.removeItem('authToken');
                 localStorage.removeItem('tokenExpiration');
                 // Redirect to the login page
-                window.location.href = 'login.html'; // Change this to 'index.html' as you requested
-            }
-            else {
-                // If token is valid, redirect to home page
-                window.location.href = 'Home.html';
+                window.location.href = 'index.html'; // Change this to 'index.html' as you requested
             }
         });
     </script>
-    
     
 </head>
 <body>
@@ -47,16 +42,16 @@
         <div class="recipe-grid" id="recipeGrid"></div>
     </main>
 
-    <!-- Login Popup -->
+    <!-- Login Popup
     <div class="popup-overlay" id="loginPopup">
         <div class="popup">
             <h2>Login Required</h2>
             <p>Please login to view the full recipe details.</p>
-            <button class="popup-btn" onclick="window.location.href='login.html'">Login</button>
+            <button class="popup-btn" onclick="window.location.href='recipe.html'"></button>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Footer -->
+
     <footer>
         <p>&copy; 2025 My Favorite Recipes. All rights reserved.</p>
     </footer>
