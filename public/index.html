@@ -6,6 +6,24 @@
     <title>MealBD</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="js/home.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Retrieve the token and its expiration time from local storage
+            const token = localStorage.getItem('authToken');
+            const expirationTime = localStorage.getItem('tokenExpiration');
+    
+            // Check if the token is missing or expired
+            if (!token || (expirationTime && Date.now() > expirationTime)) {
+                // Clear the token and expiration time from local storage
+                localStorage.removeItem('authToken'); // Make sure to use 'authToken'
+                localStorage.removeItem('tokenExpiration');
+            
+            } else {
+                // Token is valid, redirect to home page
+                window.location.href = 'home.html'; // Redirect to home page
+            }
+        });
+    </script>
 
 </head>
 <body>
