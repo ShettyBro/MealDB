@@ -43,7 +43,7 @@ loginForm.addEventListener('submit', async (e) => {
 
     // Redirect to home page after 1.5 seconds
     setTimeout(() => {
-      window.location.href = 'index.html';
+      window.location.href = 'Home.html';
     }, 1500);
 
   } catch (error) {
