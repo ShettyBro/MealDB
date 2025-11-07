@@ -4,15 +4,6 @@
         let selectedImageFile = null;
         let recipeId = null;
 
-        // Check authentication
-        function checkAuth() {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = 'login.html';
-                return false;
-            }
-            return true;
-        }
 
         // Get recipe ID from URL
         function getRecipeId() {

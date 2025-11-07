@@ -2,15 +2,6 @@
  
  let selectedImageFile = null;
 
-        // Check authentication
-        function checkAuth() {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = 'login.html';
-                return false;
-            }
-            return true;
-        }
 
         // Show message
         function showMessage(message, type) {
