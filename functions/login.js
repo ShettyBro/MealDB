@@ -75,14 +75,21 @@ exports.handler = async (event) => {
     );
 
     // ✅ Respond with token + user details
+    // Compute expiration time (ms) from the JWT 'exp' claim, fallback to 5 hours
+    const decoded = jwt.decode(token);
+    const tokenExpiration = decoded && decoded.exp
+      ? decoded.exp * 1000
+      : Date.now() + 5 * 60 * 60 * 1000;
+
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
-        message: 'Login successful',
-        token,
-        name: user.FULLNAME,
-        email: user.EMAIL,
+      message: 'Login successful',
+      token,
+      name: user.FULLNAME,
+      email: user.EMAIL,
+      tokenExpiration, // milliseconds timestamp for frontend
       }),
     };
 
