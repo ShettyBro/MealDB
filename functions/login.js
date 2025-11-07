@@ -5,7 +5,7 @@ const dbConfig = require('../dbConfig');
 require('dotenv').config();
 const crypto = require('crypto');
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.SECRET_KEY;
 if (!JWT_SECRET) throw new Error('JWT_SECRET is not set');
 
 
