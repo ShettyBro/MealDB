@@ -34,7 +34,7 @@ loginForm.addEventListener('submit', async (e) => {
 
     // Save token to localStorage
     localStorage.setItem('token', data.token);
-    localStorage.setItem('tokenExpiration', data.expiration); // Store expiration time
+    localStorage.setItem('tokenExpiration', data.expirationTime); // Store expiration time
 
     // Show success message
     showMessage('Login successful! Redirecting...', 'success');
