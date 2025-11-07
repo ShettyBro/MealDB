@@ -6,28 +6,7 @@
     <title>MealBD</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="js/home.js" defer></script>
-       <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Retrieve the token and its expiration time from local storage
-            const token = localStorage.getItem('authToken');
-            const expirationTime = localStorage.getItem('tokenExpiration');
-            
-            // Check if the token is missing or expired
-            if (!token || (expirationTime && Date.now() > expirationTime)) {
-                // Clear the token and expiration time from local storage
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('tokenExpiration');
-                // Redirect to the login page
-                window.location.href = 'login.html'; // Change this to 'index.html' as you requested
-            }
-            else {
-                // If token is valid, redirect to home page
-                window.location.href = 'Home.html';
-            }
-        });
-    </script>
-    
-    
+
 </head>
 <body>
     <!-- Navigation -->
