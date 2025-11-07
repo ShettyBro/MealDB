@@ -15,7 +15,7 @@
             // Check if the token is missing or expired
             if (!token || (expirationTime && Date.now() > expirationTime)) {
                 // Clear the token and expiration time from local storage
-                localStorage.removeItem('authToken');
+                localStorage.removeItem('token');
                 localStorage.removeItem('tokenExpiration');
                 // Redirect to the login page
                 window.location.href = 'index.html'; // Change this to 'index.html' as you requested
