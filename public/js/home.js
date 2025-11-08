@@ -69,25 +69,4 @@
             document.getElementById('loginPopup').classList.remove('active');
         }
 
-        // // Login function (demo)
-        // function login(e) {
-        //     e.preventDefault();
-        //     isLoggedIn = true;
-        //     alert('You are now logged in! (Demo)');
-        // }
-
-        // // Register function (demo)
-        // function register(e) {
-        //     e.preventDefault();
-        //     alert('Registration page would open here! (Demo)');
-        // }
-
-        // // Close popup when clicking outside
-        // document.getElementById('loginPopup').addEventListener('click', function(e) {
-        //     if (e.target === this) {
-        //         closePopup();
-        //     }
-        // });
-
-        // Initialize
         renderRecipes();
