@@ -1,4 +1,4 @@
-// myRecipes.js - Updated to fetch user's recipes from database
+// myRecipes.js - Fixed to show recipes AND delete properly
 
 let userRecipes = [];
 let recipeToDelete = null;
@@ -137,26 +137,33 @@ function closeDeleteModal() {
     }
 }
 
-// Confirm delete
+// Confirm delete - FIXED to send ID as query parameter
 async function confirmDelete() {
-    if (recipeToDelete === null) return;
+    if (recipeToDelete === null) {
+        alert('No recipe selected for deletion');
+        return;
+    }
 
     try {
-        console.log(`Deleting recipe ${recipeToDelete}...`);
+        console.log(`Deleting recipe ID: ${recipeToDelete}...`);
         
-        const response = await fetch(`https://mealdbs.netlify.app/.netlify/functions/deleteRecipe`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                recipeId: recipeToDelete,
-                userId: getUserId()
-            })
-        });
+        // CRITICAL FIX: Send ID as query parameter, NOT in body
+        const response = await fetch(
+            `https://mealdbs.netlify.app/.netlify/functions/deleteRecipe?id=${recipeToDelete}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+                // NO BODY - ID is in the URL as query parameter
+            }
+        );
 
-        if (response.ok) {
-            console.log('Recipe deleted successfully');
+        const data = await response.json();
+        console.log('Delete response:', data);
+
+        if (response.ok && data.success) {
+            console.log('✅ Recipe deleted successfully:', data.recipeName);
             
             // Remove from local array
             userRecipes = userRecipes.filter(recipe => recipe.id !== recipeToDelete);
@@ -165,14 +172,13 @@ async function confirmDelete() {
             renderRecipes();
             
             // Show success message
-            showSuccessMessage('Recipe deleted successfully!');
+            showSuccessMessage(`✅ Recipe "${data.recipeName}" deleted successfully!`);
         } else {
-            const data = await response.json();
             throw new Error(data.message || 'Failed to delete recipe');
         }
     } catch (error) {
-        console.error('Error deleting recipe:', error);
-        alert('Failed to delete recipe: ' + error.message);
+        console.error('❌ Error deleting recipe:', error);
+        alert(`Failed to delete recipe: ${error.message}`);
         closeDeleteModal();
     }
 }
@@ -192,6 +198,8 @@ function showSuccessMessage(message) {
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         z-index: 1000;
         animation: slideIn 0.3s ease-out;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
     `;
     messageDiv.textContent = message;
     document.body.appendChild(messageDiv);
@@ -226,6 +234,8 @@ if (logoutButton) {
             localStorage.removeItem('pname');
             localStorage.removeItem('pemail');
             
+            console.log('✅ User logged out successfully');
+            
             // Redirect to login
             window.location.href = 'login.html';
         }
@@ -234,7 +244,8 @@ if (logoutButton) {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('My Recipes page loaded');
+    console.log('📄 My Recipes page loaded');
+    console.log('👤 User ID:', getUserId());
     fetchMyRecipes();
 });
 
@@ -261,6 +272,27 @@ style.textContent = `
             opacity: 0;
             transform: translateX(100%);
         }
+    }
+    
+    .dashboard-loading {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+    }
+    
+    .dashboard-spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #ff6b6b;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 `;
 document.head.appendChild(style);
