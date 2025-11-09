@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (token) {
     showMessage('You are already logged in. Redirecting...', 'success');
     setTimeout(() => {
-      window.location.href = 'index.html';
+      window.location.href = 'Home.html';
     }, 1500);
   }
 });
