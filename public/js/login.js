@@ -34,6 +34,7 @@ loginForm.addEventListener('submit', async (e) => {
 
     localStorage.setItem('pname', data.name); // Store the user's name
             localStorage.setItem('pemail', data.email); // Store the user's email
+              localStorage.setItem('userId', data.userId); // Store the user's ID
 
             localStorage.setItem('authToken', data.token); // Store the token
              // Set expiration time for the token (5 hours in milliseconds)
