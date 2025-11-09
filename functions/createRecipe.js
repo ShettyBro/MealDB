@@ -1,6 +1,43 @@
 const sql = require('mssql');
+const { BlobServiceClient } = require('@azure/storage-blob');
 const dbConfig = require('../dbConfig');
 require('dotenv').config();
+
+// Azure Blob Storage Configuration
+const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
+const CONTAINER_NAME = 'recipe-images'; // Your container name
+
+// Upload image to Azure Blob Storage
+async function uploadImageToBlob(base64Image, filename) {
+  try {
+    // Remove base64 prefix (e.g., "data:image/jpeg;base64,")
+    const base64Data = base64Image.split(',')[1];
+    const buffer = Buffer.from(base64Data, 'base64');
+
+    // Create BlobServiceClient
+    const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
+    const containerClient = blobServiceClient.getContainerClient(CONTAINER_NAME);
+
+    // Generate unique filename
+    const timestamp = Date.now();
+    const blobName = `${timestamp}-${filename}`;
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+    // Determine content type from base64 prefix
+    const contentType = base64Image.split(';')[0].split(':')[1];
+
+    // Upload buffer to blob
+    await blockBlobClient.upload(buffer, buffer.length, {
+      blobHTTPHeaders: { blobContentType: contentType }
+    });
+
+    // Return public URL
+    return blockBlobClient.url;
+  } catch (error) {
+    console.error('Blob upload error:', error);
+    throw new Error('Failed to upload image');
+  }
+}
 
 exports.handler = async (event) => {
   const headers = {
@@ -9,16 +46,15 @@ exports.handler = async (event) => {
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 
-  // Handle CORS
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 200, headers, body: "" };
   }
 
   try {
     const body = JSON.parse(event.body);
-    const { userId, title, imageUrl, ingredients, steps } = body;
+    const { userId, title, imageBase64, ingredients, steps } = body;
 
-    // Simple validation
+    // Validation
     if (!userId || !title || !ingredients || !steps) {
       return {
         statusCode: 400,
@@ -29,14 +65,35 @@ exports.handler = async (event) => {
       };
     }
 
+    let imageUrl = '';
+
+    // Upload image to Azure Blob if provided
+    if (imageBase64) {
+      try {
+        const filename = `recipe-${userId}-${Date.now()}.jpg`;
+        imageUrl = await uploadImageToBlob(imageBase64, filename);
+        console.log('Image uploaded to blob:', imageUrl);
+      } catch (uploadError) {
+        console.error('Image upload failed:', uploadError);
+        return {
+          statusCode: 500,
+          headers,
+          body: JSON.stringify({ 
+            message: 'Failed to upload image',
+            error: uploadError.message 
+          }),
+        };
+      }
+    }
+
     // Connect to Azure SQL
     const pool = await sql.connect(dbConfig);
     
-    // Insert recipe
+    // Insert recipe with blob URL
     const result = await pool.request()
       .input('userId', sql.Int, userId)
       .input('title', sql.VarChar, title)
-      .input('imageUrl', sql.VarChar, imageUrl || '')
+      .input('imageUrl', sql.VarChar, imageUrl)
       .input('ingredients', sql.Text, ingredients)
       .input('steps', sql.Text, steps)
       .query(`

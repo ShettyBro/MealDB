@@ -105,7 +105,7 @@ document.getElementById('addRecipeForm').addEventListener('submit', async functi
         const recipeData = {
             userId: parseInt(userId),
             title: title,
-            imageUrl: imageBase64,
+            imageBase64: imageBase64,
             ingredients: ingredients,
             steps: steps
         };
