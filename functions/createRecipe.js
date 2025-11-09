@@ -1,8 +1,10 @@
 // createRecipe.js
 
 const sql = require('mssql');
-const multiparty = require('multiparty');
 const { BlobServiceClient } = require('@azure/storage-blob');
+const multiparty = require('multiparty');
+const { Readable } = require('stream');
+const fs = require('fs');
 const dbConfig = require('../dbConfig');
 require('dotenv').config();
 
@@ -22,10 +24,16 @@ exports.handler = async (event) => {
   }
 
   try {
-    // ✅ Parse form data (multipart/form-data)
+    // ✅ Convert Netlify Base64 event body into a readable stream
+    const buffer = Buffer.from(event.body, event.isBase64Encoded ? 'base64' : 'utf8');
+    const stream = new Readable();
+    stream.push(buffer);
+    stream.push(null);
+
+    // ✅ Parse multipart form data
     const form = new multiparty.Form();
     const formData = await new Promise((resolve, reject) => {
-      form.parse(event, (err, fields, files) => {
+      form.parse(stream, (err, fields, files) => {
         if (err) reject(err);
         else resolve({ fields, files });
       });
@@ -44,20 +52,19 @@ exports.handler = async (event) => {
       };
     }
 
-    // ✅ Upload image to Azure Blob Storage
+    // ✅ Upload image to Azure Blob
     const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
     const containerClient = blobServiceClient.getContainerClient(CONTAINER_NAME);
 
     const blobName = `${Date.now()}-${imageFile.originalFilename}`;
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-    const fs = require('fs');
     const fileStream = fs.createReadStream(imageFile.path);
-
     await blockBlobClient.uploadStream(fileStream);
+
     const imageUrl = blockBlobClient.url;
 
-    // ✅ Insert recipe into Azure SQL (temporarily use USER_ID = 1 for testing)
+    // ✅ Insert into SQL
     const pool = await sql.connect(dbConfig);
     const insertQuery = `
       INSERT INTO RECIPES (USER_ID, TITLE, IMAGE_URL, INGREDIENTS, STEPS)
@@ -66,7 +73,7 @@ exports.handler = async (event) => {
     `;
 
     const result = await pool.request()
-      .input('userId', sql.Int, 1) // <-- Hardcoded test user ID
+      .input('userId', sql.Int, 1) // hardcoded for testing
       .input('title', sql.VarChar, title.toUpperCase())
       .input('imageUrl', sql.VarChar, imageUrl)
       .input('ingredients', sql.Text, ingredients)
@@ -81,7 +88,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         message: "✅ Recipe added successfully!",
         recipeId: newRecipeId,
-        imageUrl
+        imageUrl,
       }),
     };
 
@@ -90,7 +97,10 @@ exports.handler = async (event) => {
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ message: "Server error", error: err.message }),
+      body: JSON.stringify({
+        message: "Server error",
+        error: err.message,
+      }),
     };
   }
 };
