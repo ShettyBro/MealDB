@@ -1,4 +1,4 @@
-// home.js - Updated to fetch real recipes from database
+// home.js - Updated with better error logging
 
 let recipes = [];
 let isLoggedIn = false;
@@ -33,13 +33,23 @@ async function fetchRecipes() {
 
     try {
         console.log('Fetching recipes from API...');
+        console.log('API URL: https://mealdbs.netlify.app/.netlify/functions/getRecipes');
+        
         const response = await fetch('https://mealdbs.netlify.app/.netlify/functions/getRecipes');
         
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+        
+        // Get response text first to see what we're getting
+        const responseText = await response.text();
+        console.log('Response text:', responseText);
+        
         if (!response.ok) {
-            throw new Error('Failed to fetch recipes');
+            throw new Error(`HTTP ${response.status}: ${responseText}`);
         }
 
-        const data = await response.json();
+        // Try to parse JSON
+        const data = JSON.parse(responseText);
         console.log('Recipes fetched:', data);
 
         recipes = data.recipes || [];
@@ -61,12 +71,15 @@ async function fetchRecipes() {
 
     } catch (error) {
         console.error('Error fetching recipes:', error);
+        console.error('Error details:', error.message);
+        
         if (grid) {
             grid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #dc3545;">
                     <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
                     <h2 style="margin-bottom: 0.5rem;">Failed to Load Recipes</h2>
-                    <p style="color: #666; margin-bottom: 1rem;">Please check your connection and try again.</p>
+                    <p style="color: #666; margin-bottom: 0.5rem;">Error: ${error.message}</p>
+                    <p style="color: #999; font-size: 0.9rem; margin-bottom: 1rem;">Check browser console (F12) for details</p>
                     <button onclick="fetchRecipes()" style="padding: 0.75rem 1.5rem; background-color: #d4af37; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
                         Retry
                     </button>
