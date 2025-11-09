@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/ShettyBro/MealDB#readme",
   "dependencies": {
+    "@azure/storage-blob": "^12.29.1",
     "bcryptjs": "^3.0.2",
     "crypto": "^1.0.1",
     "dotenv": "^17.2.3",
     "jsonwebtoken": "^9.0.2",
-    "mssql": "^12.0.0",
+    "mssql": "^12.1.0",
+    "multiparty": "^4.2.3",
     "node-fetch": "^3.3.2"
   }
 }
