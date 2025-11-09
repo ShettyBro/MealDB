@@ -55,7 +55,7 @@ exports.handler = async (event) => {
         r.INGREDIENTS as ingredients,
         r.STEPS as steps,
         r.CREATED_AT as createdAt,
-        u.NAME as createdBy
+        u.FULLNAME as createdBy
       FROM RECIPES r
       LEFT JOIN USERS u ON r.USER_ID = u.USER_ID
       ORDER BY r.CREATED_AT DESC

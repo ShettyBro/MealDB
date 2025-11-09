@@ -71,7 +71,7 @@ exports.handler = async (event) => {
           r.STEPS as steps,
           r.CREATED_AT as createdAt,
           r.USER_ID as userId,
-          u.NAME as createdBy
+          u.FULLNAME as createdBy
         FROM RECIPES r
         LEFT JOIN USERS u ON r.USER_ID = u.USER_ID
         WHERE r.RECIPE_ID = @recipeId
