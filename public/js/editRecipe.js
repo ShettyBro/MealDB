@@ -290,11 +290,10 @@ async function handleSubmit(e) {
         console.log('Update response:', data);
 
         if (response.ok && data.success) {
-            showMessage('✅ Recipe updated successfully! Redirecting...', 'success');
-            
-            setTimeout(() => {
-                window.location.href = 'my-recipes.html';
-            }, 1500);
+                // Show popup popup instead of redirect
+                showSuccessPopup();
+
+           
         } else {
             showMessage('❌ ' + (data.message || 'Failed to update recipe'), 'error');
             if (submitBtn) {
@@ -347,3 +346,15 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+function showSuccessPopup() {
+    const popup = document.getElementById('successPopup');
+    if (popup) popup.style.display = 'flex';
+}
+
+function closeSuccessPopup() {
+    const popup = document.getElementById('successPopup');
+    if (popup) popup.style.display = 'none';
+
+    // Redirect after closing
+    window.location.href = 'my-recipes.html';
+}

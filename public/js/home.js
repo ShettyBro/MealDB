@@ -143,25 +143,7 @@ function closePopup() {
     }
 }
 
-// Handle logout
-const logoutButton = document.getElementById('logoutButton');
-if (logoutButton) {
-    logoutButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        if (confirm('Are you sure you want to logout?')) {
-            // Clear all auth data
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('tokenExpiration');
-            localStorage.removeItem('userId');
-            localStorage.removeItem('pname');
-            localStorage.removeItem('pemail');
-            
-            // Redirect to index
-            window.location.href = 'index.html';
-        }
-    });
-}
+
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {

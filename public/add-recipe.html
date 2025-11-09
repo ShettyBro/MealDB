@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="js/addRecipe.js" defer></script>
+    <script src="js/script.js"></script>
      <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Retrieve the token and its expiration time from local storage
@@ -143,5 +144,24 @@
     </footer>
 
 
+<div class="popup-overlay" id="successPopup">
+    <div class="popup">
+        <h2>✅ Recipe Created</h2>
+        <p>Your recipe has been successfully added!</p>
+        <button class="popup-btn" onclick="closeSuccessPopup()">OK</button>
+    </div>
+</div>
+<!-- Logout Confirmation Popup -->
+<div class="popup-overlay" id="logoutConfirmPopup" style="display:none;">
+    <div class="popup">
+        <h2>Confirm Logout</h2>
+        <p>Are you sure you want to logout?</p>
+
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:10px;">
+            <button class="popup-btn" id="logoutYesBtn">Yes</button>
+            <button class="popup-btn" id="logoutNoBtn">No</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -104,7 +104,7 @@ const registerForm = document.getElementById('registerForm');
 
                 if (response.ok) {
                     // Show success message
-                    showMessage('Registration successful! Please login.', 'success');
+                    showPopup('Registration successful! Please login.', 'success');
                     
                     // Clear form
                     registerForm.reset();
@@ -116,7 +116,7 @@ const registerForm = document.getElementById('registerForm');
                     }, 2000);
                 } else {
                     // Show error message
-                    showMessage(data.message || 'Registration failed. Please try again.', 'error');
+                    showPopup(data.message || 'Registration failed. Please try again.', 'error');
                     registerBtn.disabled = false;
                     registerBtn.textContent = 'Register';
                 }
@@ -125,7 +125,7 @@ const registerForm = document.getElementById('registerForm');
                 console.log('Simulating registration since API endpoint is not available...');
                 
                 // Show success message
-                showMessage('Registration successful! Please login.', 'success');
+                showPopup('Registration successful! Please login.', 'success');
                 
                 // Clear form
                 registerForm.reset();
@@ -134,7 +134,7 @@ const registerForm = document.getElementById('registerForm');
                 // Redirect to login page after 2 seconds
                 setTimeout(() => {
                     window.location.href = 'login.html';
-                }, 2000);
+                }, 3000);
             }
         });
 

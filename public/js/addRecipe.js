@@ -180,17 +180,12 @@ if (addRecipeForm) {
             console.log('Server response:', data);
 
             if (response.ok) {
-                // Show success message
-                showMessage('✅ Recipe saved successfully! Redirecting to My Recipes...', 'success');
-                
-                // Clear form
                 addRecipeForm.reset();
                 removeImage();
-                
-                // Redirect after 1.5 seconds
-                setTimeout(() => {
-                    window.location.href = 'my-recipes.html';
-                }, 1500);
+
+                // Show popup popup instead of redirect
+                showSuccessPopup();
+
             } else {
                 // Show error message from server
                 showMessage('❌ ' + (data.message || 'Failed to save recipe. Please try again.'), 'error');
@@ -214,25 +209,7 @@ if (addRecipeForm) {
     });
 }
 
-// Handle logout button
-const logoutButton = document.getElementById('logoutButton');
-if (logoutButton) {
-    logoutButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        if (confirm('Are you sure you want to logout?')) {
-            // Clear all auth data
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('tokenExpiration');
-            localStorage.removeItem('userId');
-            localStorage.removeItem('pname');
-            localStorage.removeItem('pemail');
-            
-            // Redirect to login
-            window.location.href = 'login.html';
-        }
-    });
-}
+
 
 // Check authentication on page load
 window.addEventListener('DOMContentLoaded', () => {
@@ -256,3 +233,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     console.log('Page loaded. User authenticated.');
 });
+
+function showSuccessPopup() {
+    const popup = document.getElementById('successPopup');
+    if (popup) popup.style.display = 'flex';
+}
+
+function closeSuccessPopup() {
+    const popup = document.getElementById('successPopup');
+    if (popup) popup.style.display = 'none';
+
+    // Redirect after closing
+    window.location.href = 'my-recipes.html';
+}

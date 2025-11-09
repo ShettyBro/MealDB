@@ -143,6 +143,10 @@ async function confirmDelete() {
         alert('No recipe selected for deletion');
         return;
     }
+    
+     const deleteBtn = document.querySelector('.dashboard-modal-confirm');
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = "Deleting...";
 
     try {
         console.log(`Deleting recipe ID: ${recipeToDelete}...`);
@@ -180,6 +184,10 @@ async function confirmDelete() {
         console.error('❌ Error deleting recipe:', error);
         alert(`Failed to delete recipe: ${error.message}`);
         closeDeleteModal();
+    } finally {
+        // Re-enable the button no matter what
+        deleteBtn.disabled = false;
+        deleteBtn.textContent = "Delete";
     }
 }
 
@@ -220,27 +228,7 @@ if (deleteModal) {
     });
 }
 
-// Handle logout
-const logoutButton = document.getElementById('logoutButton');
-if (logoutButton) {
-    logoutButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        if (confirm('Are you sure you want to logout?')) {
-            // Clear all auth data
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('tokenExpiration');
-            localStorage.removeItem('userId');
-            localStorage.removeItem('pname');
-            localStorage.removeItem('pemail');
-            
-            console.log('✅ User logged out successfully');
-            
-            // Redirect to login
-            window.location.href = 'login.html';
-        }
-    });
-}
+
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {

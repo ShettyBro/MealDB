@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <script defer src="./js/login.js"></script>
-    
+    <script src="js/script.js"></script>
 
 </head>
 <body class="login-body">
@@ -73,5 +73,12 @@
         <p>&copy; 2025 MealBD. All rights reserved.</p>
     </footer>
 
+    <div class="popup-overlay" id="universalPopup">
+    <div class="popup">
+        <h2 id="popupTitle">Message</h2>
+        <p id="popupMessage"></p>
+        <button class="popup-btn" onclick="closePopup()">OK</button>
+    </div>
+</div>
 </body>
 </html>

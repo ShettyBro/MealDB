@@ -54,12 +54,12 @@ loginForm.addEventListener('submit', async (e) => {
              // Set expiration time for the token (5 hours in milliseconds)
              const expirationTime = Date.now() + (5 * 60 * 60 * 1000);
              localStorage.setItem('tokenExpiration', expirationTime);
-        showMessage('Login successful! Redirecting...', 'success');
+        showPopup('Login successful! Redirecting...', 'success');
 
     // Redirect to home page after 1.5 seconds
     setTimeout(() => {
       window.location.href = 'Home.html';
-    }, 1500);
+    }, 3000);
 
   } catch (error) {
   console.error('Login error:', error);
@@ -68,14 +68,14 @@ loginForm.addEventListener('submit', async (e) => {
   const isNetworkError = error instanceof TypeError || /NetworkError|Failed to fetch/i.test(error.message);
 
   if (error.status === 401) {
-    showMessage('Invalid username or password. Please try again.', 'error');
+    showPopup('Invalid username or password. Please try again.', 'error');
   } else if (error.status >= 500) {
-    showMessage('Server error. Please try again in a few minutes.', 'error');
+    showPopup('Server error. Please try again in a few minutes.', 'error');
   } else if (isNetworkError) {
-    showMessage('Server seems down or unreachable. Please check your connection and try again.', 'error');
+    showPopup('Server seems down or unreachable. Please check your connection and try again.', 'error');
   } else {
     // Use whatever message we have (e.g., 400 validation from server)
-    showMessage(error.message || 'Something went wrong. Please try again.', 'error');
+    showPopup(error.message || 'Something went wrong. Please try again.', 'error');
   }
 
   loginBtn.disabled = false;
@@ -83,7 +83,7 @@ loginForm.addEventListener('submit', async (e) => {
 }
 });
 
-function showMessage(text, type) {
+function showPopup(text, type) {
   messageDiv.textContent = text;
   messageDiv.className = `message show ${type}`;
 }
@@ -92,9 +92,9 @@ function showMessage(text, type) {
 window.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('token');
   if (token) {
-    showMessage('You are already logged in. Redirecting...', 'success');
+    showPopup('You are already logged in. Redirecting...', 'success');
     setTimeout(() => {
       window.location.href = 'Home.html';
-    }, 1500);
+    }, 3000);
   }
 });
