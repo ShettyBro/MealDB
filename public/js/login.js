@@ -26,9 +26,23 @@ loginForm.addEventListener('submit', async (e) => {
     });
 
     if (!response.ok) {
+    // Try to parse JSON error; fall back to status text
+    let message = `Request failed (${response.status})`;
+    try {
       const errData = await response.json();
-      throw new Error(errData.message || 'Invalid username or password. Please try again.');
+      if (errData && errData.message) message = errData.message;
+    } catch {
+      // if not JSON, try text
+      try {
+        const errText = await response.text();
+        if (errText) message = errText;
+      } catch {}
     }
+
+    const error = new Error(message);
+    error.status = response.status; // <-- important
+    throw error;
+  }
 
     const data = await response.json();
 
@@ -48,11 +62,25 @@ loginForm.addEventListener('submit', async (e) => {
     }, 1500);
 
   } catch (error) {
-    console.error('Login error:', error.message);
-    showMessage('Server Down wait for 2 minutes And Try Again',);
-    loginBtn.disabled = false;
-    loginBtn.textContent = 'Login';
+  console.error('Login error:', error);
+
+  // Network errors: fetch throws TypeError on network failure/CORS/server down
+  const isNetworkError = error instanceof TypeError || /NetworkError|Failed to fetch/i.test(error.message);
+
+  if (error.status === 401) {
+    showMessage('Invalid username or password. Please try again.', 'error');
+  } else if (error.status >= 500) {
+    showMessage('Server error. Please try again in a few minutes.', 'error');
+  } else if (isNetworkError) {
+    showMessage('Server seems down or unreachable. Please check your connection and try again.', 'error');
+  } else {
+    // Use whatever message we have (e.g., 400 validation from server)
+    showMessage(error.message || 'Something went wrong. Please try again.', 'error');
   }
+
+  loginBtn.disabled = false;
+  loginBtn.textContent = 'Login';
+}
 });
 
 function showMessage(text, type) {
