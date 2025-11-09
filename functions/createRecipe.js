@@ -1,13 +1,11 @@
 // createRecipe.js
 
 const sql = require('mssql');
-const jwt = require('jsonwebtoken');
 const multiparty = require('multiparty');
 const { BlobServiceClient } = require('@azure/storage-blob');
 const dbConfig = require('../dbConfig');
 require('dotenv').config();
 
-const JWT_SECRET = process.env.JWT_SECRET;
 const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
 const CONTAINER_NAME = process.env.AZURE_STORAGE_CONTAINER;
 
@@ -24,20 +22,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    // Verify JWT token
-    const token = event.headers.authorization?.split(' ')[1];
-    if (!token) {
-      return { statusCode: 401, headers, body: JSON.stringify({ message: "Missing token" }) };
-    }
-
-    let decoded;
-    try {
-      decoded = jwt.verify(token, JWT_SECRET);
-    } catch (err) {
-      return { statusCode: 401, headers, body: JSON.stringify({ message: "Invalid or expired token" }) };
-    }
-
-    // Parse form data (multipart/form-data)
+    // ✅ Parse form data (multipart/form-data)
     const form = new multiparty.Form();
     const formData = await new Promise((resolve, reject) => {
       form.parse(event, (err, fields, files) => {
@@ -59,7 +44,7 @@ exports.handler = async (event) => {
       };
     }
 
-    // Upload image to Azure Blob
+    // ✅ Upload image to Azure Blob Storage
     const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
     const containerClient = blobServiceClient.getContainerClient(CONTAINER_NAME);
 
@@ -72,7 +57,7 @@ exports.handler = async (event) => {
     await blockBlobClient.uploadStream(fileStream);
     const imageUrl = blockBlobClient.url;
 
-    // Insert into SQL
+    // ✅ Insert recipe into Azure SQL (temporarily use USER_ID = 1 for testing)
     const pool = await sql.connect(dbConfig);
     const insertQuery = `
       INSERT INTO RECIPES (USER_ID, TITLE, IMAGE_URL, INGREDIENTS, STEPS)
@@ -81,7 +66,7 @@ exports.handler = async (event) => {
     `;
 
     const result = await pool.request()
-      .input('userId', sql.Int, decoded.id)
+      .input('userId', sql.Int, 1) // <-- Hardcoded test user ID
       .input('title', sql.VarChar, title.toUpperCase())
       .input('imageUrl', sql.VarChar, imageUrl)
       .input('ingredients', sql.Text, ingredients)
@@ -94,11 +79,12 @@ exports.handler = async (event) => {
       statusCode: 200,
       headers,
       body: JSON.stringify({
-        message: "Recipe added successfully!",
+        message: "✅ Recipe added successfully!",
         recipeId: newRecipeId,
         imageUrl
       }),
     };
+
   } catch (err) {
     console.error("Create recipe error:", err);
     return {
