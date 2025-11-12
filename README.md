@@ -215,7 +215,7 @@ MealDB/
 ![Recipe Detail](screenshots/recipie.png)
 
 ### Add Recipe
-![Add Recipe](screenshots/Add recpies.png)
+![Add Recipe](screenshots/Add-recpies.png)
 
 ### My Recipes Dashboard
 ![My Recipes](screenshots/myrecipies.png)
