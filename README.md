@@ -2,7 +2,6 @@
 
 > A full-stack CRUD web application for managing and sharing recipes
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-badge-id/deploy-status)](https://mealdbs.netlify.app/)
 
 **Live Demo:** [https://mealdbs.netlify.app/](https://mealdbs.netlify.app/)
 
@@ -267,13 +266,9 @@ The `netlify.toml` file configures serverless functions and routing:
 - 🔍 **Advanced Search** - Filter recipes by ingredients, cuisine, and dietary preferences
 - ⭐ **Rating System** - Allow users to rate recipes with star ratings
 - 💬 **Comments** - Enable community discussions on recipes
-- 🏷️ **Tags & Categories** - Organize recipes with custom tags
 - 👨‍💼 **Admin Panel** - Moderation tools for managing users and content
 - 📧 **Email Notifications** - Recipe recommendations and activity updates
 - 🌐 **Social Sharing** - Share recipes directly to social media platforms
-- 📊 **Analytics Dashboard** - Track popular recipes and user engagement
-- 🥗 **Meal Planning** - Weekly meal planner with shopping list generation
-- 🌍 **Internationalization** - Multi-language support
 
 ---
 
