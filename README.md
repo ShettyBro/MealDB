@@ -70,7 +70,7 @@ MealDB is a modern recipe management platform that allows users to create, share
 │ Azure   │ │ Azure Blob   │
 │ SQL DB  │ │ Storage      │
 └─────────┘ └──────────────┘
-```
+``` 
 
 - **Frontend**: Static HTML/CSS/JS files served via Netlify CDN
 - **Backend**: Serverless functions handle authentication, CRUD operations, and business logic
@@ -185,10 +185,19 @@ MealDB/
 │       ├── login.js             # User authentication
 │       ├── register.js          # User registration
 │       └── updateRecipe.js      # Update recipe by ID
+|
 ├── public/
 │   ├── assets/css/
 │   │   └── style.css            # Global styles
 │   ├── js/                      # Client-side scripts
+|   │     ├── addRecipe.js       
+|   │     ├── editRecipe.js
+│   │     ├── myRecipes.js
+│   │     ├── recipeDetails.js
+|   │     ├── login.js
+|   │     ├── register.js
+|   │     └── script.js  
+|   │     
 │   ├── add-recipe.html          # Recipe creation form
 │   ├── edit-recipe.html         # Recipe editing form
 │   ├── Home.html                # Main recipe feed
