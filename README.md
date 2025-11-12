@@ -1,6 +1,6 @@
-<h1 align="center"> # 🍽️ MealDB </h1>
+<h1 align="center"> 🍽️ MealDB </h1>
 
-> A full-stack CRUD web application for managing and sharing recipes
+<h2 align="center"> A full-stack CRUD web application for managing and sharing recipes </h2>
 
 
 **Live Demo:** [https://mealdbs.netlify.app/](https://mealdbs.netlify.app/)
