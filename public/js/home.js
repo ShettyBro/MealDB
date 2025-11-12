@@ -7,12 +7,12 @@ let isLoggedIn = false;
 function checkAuth() {
     const token = localStorage.getItem('authToken');
     const expirationTime = localStorage.getItem('tokenExpiration');
-    
+
     if (token && expirationTime && Date.now() < expirationTime) {
         isLoggedIn = true;
         return true;
     }
-    
+
     isLoggedIn = false;
     return false;
 }
@@ -20,7 +20,7 @@ function checkAuth() {
 // Fetch recipes from API
 async function fetchRecipes() {
     const grid = document.getElementById('recipeGrid');
-    
+
     // Show loading state
     if (grid) {
         grid.innerHTML = `
@@ -34,16 +34,16 @@ async function fetchRecipes() {
     try {
         console.log('Fetching recipes from API...');
         console.log('API URL: https://mealdbs.netlify.app/.netlify/functions/getRecipes');
-        
+
         const response = await fetch('https://mealdbs.netlify.app/.netlify/functions/getRecipes');
-        
+
         console.log('Response status:', response.status);
         console.log('Response ok:', response.ok);
-        
+
         // Get response text first to see what we're getting
         const responseText = await response.text();
         console.log('Response text:', responseText);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${responseText}`);
         }
@@ -53,7 +53,7 @@ async function fetchRecipes() {
         console.log('Recipes fetched:', data);
 
         recipes = data.recipes || [];
-        
+
         if (recipes.length === 0) {
             if (grid) {
                 grid.innerHTML = `
@@ -72,20 +72,21 @@ async function fetchRecipes() {
     } catch (error) {
         console.error('Error fetching recipes:', error);
         console.error('Error details:', error.message);
-        
+
         if (grid) {
             grid.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #dc3545;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
-                    <h2 style="margin-bottom: 0.5rem;">Failed to Load Recipes</h2>
-                    <p style="color: #666; margin-bottom: 0.5rem;">Error: ${error.message}</p>
-                    <p style="color: #999; font-size: 0.9rem; margin-bottom: 1rem;">Check browser console (F12) for details</p>
-                    <button onclick="fetchRecipes()" style="padding: 0.75rem 1.5rem; background-color: #d4af37; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
-                        Retry
-                    </button>
-                </div>
-            `;
+        <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #dc3545;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">⚙️</div>
+            <h2 style="margin-bottom: 0.5rem;">Server is Rebooting</h2>
+            <p style="color: #666; margin-bottom: 0.5rem;">Please wait for about 2 minute and then refresh the page.</p>
+            <p style="color: #999; font-size: 0.9rem; margin-bottom: 1rem;">The server might be temporarily unavailable during reboot.</p>
+            <button onclick="location.reload()" style="padding: 0.75rem 1.5rem; background-color: #d4af37; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                Refresh Now
+            </button>
+        </div>
+         `;
         }
+
     }
 }
 
@@ -99,19 +100,19 @@ function renderRecipes() {
     recipes.forEach(recipe => {
         const card = document.createElement('div');
         card.className = 'recipe-card';
-        
+
         // Use the image URL from database or fallback
         const imageUrl = recipe.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop';
-        
+
         card.innerHTML = `
             <img src="${imageUrl}" alt="${recipe.title}" class="recipe-image" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'">
             <div class="recipe-content">
                 <h3 class="recipe-title">${recipe.title}</h3>
-                ${isLoggedIn ? 
-                    `<button class="view-btn" onclick="viewRecipe(${recipe.id})">View Details</button>` 
-                    : 
-                    `<button class="view-btn" onclick="showLoginPopup()">View Details</button>`
-                }
+                ${isLoggedIn ?
+                `<button class="view-btn" onclick="viewRecipe(${recipe.id})">View Details</button>`
+                :
+                `<button class="view-btn" onclick="showLoginPopup()">View Details</button>`
+            }
             </div>
         `;
         grid.appendChild(card);
@@ -146,11 +147,11 @@ function closePopup() {
 
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Page loaded. Checking authentication...');
     checkAuth();
     console.log('User logged in:', isLoggedIn);
-    
+
     // Fetch and display recipes
     fetchRecipes();
 });
