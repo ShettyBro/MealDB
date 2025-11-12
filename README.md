@@ -33,7 +33,7 @@ MealDB is a modern recipe management platform that allows users to create, share
 ### Frontend
 - HTML5
 - CSS3
-- Vanilla JavaScript (ES6+)
+- JavaScript
 
 ### Backend
 - Node.js
