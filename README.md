@@ -3,7 +3,8 @@
 <h4 align="center"> A full-stack CRUD web application for managing and sharing recipes </h4>
 
 
-**Live Demo:** [MealDB](https://mealdbs.netlify.app/)
+**Live Demo:** [MealDB](https://mealdbs.netlify.app/) 🚀
+⚠️ Note: Wait for 2 min before Refreshing page if shows any Errro !! 
 
 **Status:** 🚧 Work in Progress
 
