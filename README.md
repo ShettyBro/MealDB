@@ -212,13 +212,13 @@ MealDB/
 ![Home Page](screenshots/home.png)
 
 ### Recipe Detail
-![Recipe Detail](screenshots/recipe-detail.png)
+![Recipe Detail](screenshots/recipie.png)
 
 ### Add Recipe
-![Add Recipe](screenshots/add-recipe.png)
+![Add Recipe](screenshots/Add recpies.png)
 
 ### My Recipes Dashboard
-![My Recipes](screenshots/my-recipes.png)
+![My Recipes](screenshots/myrecipies.png)
 
 ---
 
