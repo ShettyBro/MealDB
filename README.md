@@ -1,4 +1,4 @@
-# 🍽️ MealDB
+<h1 align="center"> # 🍽️ MealDB </h1>
 
 > A full-stack CRUD web application for managing and sharing recipes
 
