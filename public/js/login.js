@@ -46,17 +46,17 @@ loginForm.addEventListener('submit', async (e) => {
 
     const data = await response.json();
 
-    localStorage.setItem('pname', data.name); // Store the user's name
-            localStorage.setItem('pemail', data.email); // Store the user's email
-              localStorage.setItem('userId', data.userId); // Store the user's ID
+    localStorage.setItem('pname', data.name);          
+       localStorage.setItem('pemail', data.email); 
+              localStorage.setItem('userId', data.userId); 
 
-            localStorage.setItem('authToken', data.token); // Store the token
+            localStorage.setItem('authToken', data.token);
              // Set expiration time for the token (5 hours in milliseconds)
              const expirationTime = Date.now() + (5 * 60 * 60 * 1000);
              localStorage.setItem('tokenExpiration', expirationTime);
         showPopup('Login successful! Redirecting...', 'success');
 
-    // Redirect to home page after 1.5 seconds
+    
     setTimeout(() => {
       window.location.href = 'Home.html';
     }, 3000);

@@ -1,4 +1,4 @@
-// recipeDetails.js - Updated to fetch single recipe from database
+// recipeDetails.js 
 
 let isLoggedIn = false;
 let currentRecipe = null;

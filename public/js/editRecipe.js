@@ -1,4 +1,4 @@
-// editRecipe.js - Complete Fixed Version
+// editRecipe.js 
 let currentRecipe = null;
 let selectedImageFile = null;
 let recipeId = null;

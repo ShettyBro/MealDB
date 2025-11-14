@@ -1,4 +1,4 @@
-// addRecipe.js - Complete Version
+// addRecipe.js 
 let selectedImageFile = null;
 
 // Get userId from localStorage

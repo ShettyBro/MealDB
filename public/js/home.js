@@ -1,4 +1,4 @@
-// home.js - Updated with better error logging
+// home.js 
 
 let recipes = [];
 let isLoggedIn = false;

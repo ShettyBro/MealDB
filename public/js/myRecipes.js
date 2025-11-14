@@ -1,4 +1,4 @@
-// myRecipes.js - Fixed to show recipes AND delete properly
+// myRecipes.js 
 
 let userRecipes = [];
 let recipeToDelete = null;

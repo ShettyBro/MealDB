@@ -121,7 +121,7 @@ const registerForm = document.getElementById('registerForm');
                     registerBtn.textContent = 'Register';
                 }
             } catch (error) {
-                // For demo purposes, simulate a successful registration
+                
                 console.log('Simulating registration since API endpoint is not available...');
                 
                 // Show success message
